@@ -17,7 +17,7 @@ class CacheAdapterFactory
      * @param array $options
      * @return CacheItemPoolInterface
      */
-    public static function create($adapterName, $options = [])
+    public static function create($adapterName, array $options)
     {
         $configuration = new CacheAdapterConfiguration($options);
         if ($adapterName instanceof CacheItemPoolInterface) {
@@ -40,7 +40,8 @@ class CacheAdapterFactory
      */
     private static function getAdapterByName($adapterName, CacheAdapterConfiguration $configuration)
     {
-        $adapterClass = sprintf('Cache\Adapter\%sAdapter', ucfirst($adapterName));
+        $adapterName = ucfirst($adapterName);
+        $adapterClass = sprintf('Mobly\\Cache\\Adapter\\%s\\%sAdapter', $adapterName, $adapterName);
         if (!class_exists($adapterClass)) {
             throw new CacheException(sprintf('Adapter %s not found.', $adapterName));
         }
