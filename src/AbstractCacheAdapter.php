@@ -43,16 +43,21 @@ abstract class AbstractCacheAdapter implements CacheItemPoolInterface
     abstract protected function fetchObjectFromCache($key);
 
     /**
+     * @param array $keys
+     * @return mixed
+     */
+    abstract protected function fetchMultiObjectsFromCache(array $keys);
+
+    /**
      * {@inheritdoc}
      */
     public function getItems(array $keys = [])
     {
-        $items = [];
         foreach ($keys as $key) {
-            $items[$key] = $this->getItem($key);
+            $this->validateKey($key);
         }
 
-        return $items;
+        return $this->fetchMultiObjectsFromCache($keys);
     }
 
     /**
