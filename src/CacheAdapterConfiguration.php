@@ -3,12 +3,13 @@
 namespace Mobly\Cache;
 
 use Mobly\Cache\Exception\CacheException;
+use Mobly\Cache\Interfaces\ConfigurationInterface;
 
 /**
  * Class CacheAdapterConfiguration
  * @package Mobly\Cache
  */
-class CacheAdapterConfiguration
+class CacheAdapterConfiguration implements ConfigurationInterface
 {
 
     /**

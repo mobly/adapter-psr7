@@ -3,6 +3,7 @@
 namespace Mobly\Cache;
 
 use Mobly\Cache\Exception\CacheException;
+use Mobly\Cache\Interfaces\ConfigurationInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -19,7 +20,7 @@ class CacheAdapterFactory
      */
     public static function create($adapterName, array $options)
     {
-        $configuration = new CacheAdapterConfiguration($options);
+        $configuration = self::getConfigurationByAdapterName($adapterName, $options);
         if ($adapterName instanceof CacheItemPoolInterface) {
             // $adapterName is already an adapter object
             $adapter = $adapterName;
@@ -35,10 +36,10 @@ class CacheAdapterFactory
 
     /**
      * @param $adapterName
-     * @param CacheAdapterConfiguration $configuration
+     * @param ConfigurationInterface $configuration
      * @return mixed
      */
-    private static function getAdapterByName($adapterName, CacheAdapterConfiguration $configuration)
+    private static function getAdapterByName($adapterName, ConfigurationInterface $configuration)
     {
         $adapterName = ucfirst($adapterName);
         $adapterClass = sprintf('Mobly\\Cache\\Adapter\\%s\\%sAdapter', $adapterName, $adapterName);
@@ -52,6 +53,21 @@ class CacheAdapterFactory
         }
 
         return $adapter;
+    }
+
+    /**
+     * @param $adapterName
+     * @param array $options
+     */
+    private function getConfigurationByAdapterName($adapterName, array $options)
+    {
+        $adapterName = ucfirst($adapterName);
+        $configurationClass = sprintf('Mobly\\Cache\\Configuration\\%sConfiguration', $adapterName);
+        if (!class_exists($configurationClass)) {
+            throw new CacheException(sprintf('Configuration %s not found.', $adapterName));
+        }
+
+        return new $configurationClass($options);
     }
 
 }
