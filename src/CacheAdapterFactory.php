@@ -62,7 +62,7 @@ class CacheAdapterFactory
     private function getConfigurationByAdapterName($adapterName, array $options)
     {
         $adapterName = ucfirst($adapterName);
-        $configurationClass = sprintf('Mobly\\Cache\\Configuration\\%sConfiguration', $adapterName);
+        $configurationClass = sprintf('Mobly\\Cache\\Configuration\\%s\\%sConfiguration', $adapterName, $adapterName);
         if (!class_exists($configurationClass)) {
             throw new CacheException(sprintf('Configuration %s not found.', $adapterName));
         }
