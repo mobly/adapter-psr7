@@ -35,7 +35,7 @@ class CacheAdapterConfiguration implements ConfigurationInterface
     /**
      * @var bool
      */
-    protected $checkConnection;
+    protected $checkConnection = false;
 
     /**
      * @var array
