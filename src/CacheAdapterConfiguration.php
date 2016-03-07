@@ -32,6 +32,14 @@ class CacheAdapterConfiguration implements ConfigurationInterface
      */
     protected $persistent;
 
+    /**
+     * @var bool
+     */
+    protected $checkConnection;
+
+    /**
+     * @var array
+     */
     protected $required = [
         'host',
         'port'
