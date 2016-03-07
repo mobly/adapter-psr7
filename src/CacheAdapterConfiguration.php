@@ -87,7 +87,6 @@ class CacheAdapterConfiguration implements ConfigurationInterface
         return true;
     }
 
-
     /**
      * @param $host
      */
@@ -150,5 +149,21 @@ class CacheAdapterConfiguration implements ConfigurationInterface
     public function getPersistent()
     {
         return (bool) $this->persistent;
+    }
+
+    /**
+     * @param $checkConnection
+     */
+    public function setCheckConnection($checkConnection)
+    {
+        $this->checkConnection = (bool) $checkConnection;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldCheckConnection()
+    {
+        return (bool) $this->checkConnection;
     }
 }

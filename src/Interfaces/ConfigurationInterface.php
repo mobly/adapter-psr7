@@ -48,4 +48,14 @@ interface ConfigurationInterface
      * @param $persistent
      */
     public function setPersistent($persistent);
+
+    /**
+     * @param $checkConnection
+     */
+    public function setCheckConnection($checkConnection);
+
+    /**
+     * @return bool
+     */
+    public function shouldCheckConnection();
 }
